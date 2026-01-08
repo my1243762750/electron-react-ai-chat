@@ -1,15 +1,19 @@
 {
   "name": "ai-desktop-assistant",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "author": "Trae User <user@example.com>",
   "description": "An AI Desktop Assistant built with Electron, React and SQLite",
   "main": "./out/main/index.js",
   "scripts": {
     "dev": "electron-vite dev",
-    "build": "dotenv -e .env -- electron-vite build && dotenv -e .env -- electron-builder",
-    "build:no-sign": "electron-vite build && electron-builder",
+    "build": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && electron-builder --publish always'",
+    "build:local": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && electron-builder --publish never --mac'",
+    "build:local:notarize": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && electron-builder --publish never --mac && node scripts/notarize-app.js'",
+    "build:notarize": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && electron-builder --publish always && node scripts/notarize-app.js'",
+    "notarize": "node scripts/notarize-app.js",
     "start": "electron-vite preview",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "bump": "node scripts/bump-version.js"
   },
   "dependencies": {
     "@cfworker/json-schema": "^4.1.1",
@@ -77,7 +81,10 @@
         "zip"
       ],
       "hardenedRuntime": true,
-      "gatekeeperAssess": false
+      "gatekeeperAssess": true,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "notarize": false
     },
     "asarUnpack": [
       "**/node_modules/better-sqlite3/**"
@@ -123,11 +130,11 @@
     "extraResources": [
       "resources/**"
     ],
-    "publish": [
-      {
-        "provider": "generic",
-        "url": "https://example.com/update-server-url"
-      }
-    ]
+    "publish": {
+      "provider": "github",
+      "owner": "my1243762750",
+      "repo": "electron-react-ai-chat",
+      "releaseType": "release"
+    }
   }
 }
