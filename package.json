@@ -1,19 +1,25 @@
 {
   "name": "ai-desktop-assistant",
-  "version": "1.0.2",
+  "version": "1.0.14",
   "author": "Trae User <user@example.com>",
   "description": "An AI Desktop Assistant built with Electron, React and SQLite",
   "main": "./out/main/index.js",
   "scripts": {
     "dev": "electron-vite dev",
-    "build": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && electron-builder --publish always'",
-    "build:local": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && electron-builder --publish never --mac'",
-    "build:local:notarize": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && electron-builder --publish never --mac && node scripts/notarize-app.js'",
-    "build:notarize": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && electron-builder --publish always && node scripts/notarize-app.js'",
-    "notarize": "node scripts/notarize-app.js",
     "start": "electron-vite preview",
     "postinstall": "electron-builder install-app-deps",
-    "bump": "node scripts/bump-version.js"
+    "bump": "node scripts/bump-version.js",
+    "notarize": "node scripts/notarize-app.js",
+    "build:local:mac": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && electron-builder --publish never --mac'",
+    "build:local:mac:notarize": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && electron-builder --publish never --mac && node scripts/notarize-app.js'",
+    "build:local:win": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && ELECTRON_BUILDER_SKIP_DEPENDENCY_INSTALL=1 electron-builder --publish never --win --x64'",
+    "build:local:linux": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && ELECTRON_BUILDER_SKIP_DEPENDENCY_INSTALL=1 electron-builder --publish never --linux --arm64'",
+    "build:local:all": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && electron-builder --publish never --mac --win --linux'",
+    "build:remote:mac": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && ELECTRON_BUILDER_SKIP_DEPENDENCY_INSTALL=1 electron-builder --publish always --mac --arm64'",
+    "build:remote:mac:notarize": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && ELECTRON_BUILDER_SKIP_DEPENDENCY_INSTALL=1 electron-builder --publish always --mac --arm64 && node scripts/notarize-app.js'",
+    "build:remote:win": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && ELECTRON_BUILDER_SKIP_DEPENDENCY_INSTALL=1 electron-builder --publish always --win --x64'",
+    "build:remote:linux": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && ELECTRON_BUILDER_SKIP_DEPENDENCY_INSTALL=1 electron-builder --publish always --linux --arm64'",
+    "build:remote:all": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && electron-builder --publish always --mac --win --linux'"
   },
   "dependencies": {
     "@cfworker/json-schema": "^4.1.1",
