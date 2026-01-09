@@ -1,6 +1,6 @@
 {
   "name": "ai-desktop-assistant",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Trae User <user@example.com>",
   "description": "An AI Desktop Assistant built with Electron, React and SQLite",
   "main": "./out/main/index.js",
