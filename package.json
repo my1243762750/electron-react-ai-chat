@@ -19,7 +19,7 @@
     "build:remote:mac:notarize": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && ELECTRON_BUILDER_SKIP_DEPENDENCY_INSTALL=1 electron-builder --publish always --mac --arm64 && node scripts/notarize-app.js'",
     "build:remote:win": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && ELECTRON_BUILDER_SKIP_DEPENDENCY_INSTALL=1 electron-builder --publish always --win --x64'",
     "build:remote:linux": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && ELECTRON_BUILDER_SKIP_DEPENDENCY_INSTALL=1 electron-builder --publish always --linux --arm64'",
-    "build:remote:all": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && electron-builder --publish always --mac --win --linux --release-notes-file=RELEASE_NOTES.md'"
+    "build:remote:all": "dotenv -e .env -- bash -c 'rm -rf dist && node scripts/bump-version.js && electron-vite build && electron-builder --publish always --mac --win --linux'"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
